@@ -1,0 +1,38 @@
+table{
+    margin: 0 auto;
+}
+
+img{
+    margin: 0.5em;
+    padding: 1em;
+    border-radius: 30%;
+    background-color: #2D313B;
+}
+
+.Title_name{
+    padding: 0.5em;
+    margin: 0.5em;
+    color: white;
+    font-weight: 700;
+    font-size: 200%;
+}
+
+.Icons{
+    padding: 0.5em;
+    color: #3CC9FF;
+    font-size: 90%;
+    font-weight: 400;
+}
+
+.Counts{
+    margin: 1em;
+    padding: 0.5em;
+    color: #8D879D;
+    font-weight: 200;
+}
+
+.Number{
+    font-size: 350%;
+    font-weight: 700;
+    color: #8D879D;
+}
