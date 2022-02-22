@@ -6,7 +6,7 @@ html, body{
     font-family: 'Gothic A1', sans-serif;
 }
 
-#main_square{
+.main_square{
     display: inline-block;
     padding: 1em;
     width: 85%;

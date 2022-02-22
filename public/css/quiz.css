@@ -1,0 +1,74 @@
+#Quiz_Title{
+    display: block;
+    padding: 0.5em;
+    color: white;
+    font-size: 150%;
+    font-weight: 700;
+}
+
+#image{
+    display: inline-block;
+    width: 80%;
+    height: 20em;
+    padding: 1em;
+    border-radius: 1em;
+    background-color: whitesmoke;
+    background-image: url(img/P0.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#comment{
+    display: block;
+    padding: 1em;
+    color: #8D879D;
+    font-weight: 400;
+}
+
+#input{
+    display: block;
+}
+#answer{
+    width: 50%;
+    margin: 1em;
+    padding: 2em;
+    border: none;
+    border-radius: 1em;
+}
+
+#BtnWrap{
+    display: block;
+    padding: 1em;
+}
+
+.SendBtn{
+    width: 20%;
+}
+
+#ReloadBtn{
+    width: 20%;
+    margin: 1em;
+    padding: 1em;
+    font-weight: 700;
+    font-size: large;
+    border: none;
+    border-radius: 1em;
+    background-color: #2D313B;
+    color: #8D879D;
+}
+
+#ReloadBtn:hover{
+    background-color: #8D879D;
+    color: #1E2128;
+}
+
+#ReloadBtn:active{
+    transform: scale(0.9, 0.9);
+}
+
+#Hint{
+    display: block;
+    color: #8D879D;
+    padding: 1em;
+}

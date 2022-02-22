@@ -22,12 +22,19 @@ db.on('error', function(err){
 //static 경로 설정
 app.use(express.static(__dirname + '/public'));
 
+//content를 루트로
 app.get('/', function(req, res){
-  res.redirect('/views');
+  res.redirect('/content');
 });
 
-app.get('/views', function(req, res){
-  res.render('index');
+//content로 get 시에 index.ejs(메인페이지)
+app.get('/content', function(req, res){
+  res.render('content/index');
+});
+
+//quiz_page로 get 시에 quiz_page.ejs
+app.get('/content/quiz_page', function(req, res){
+  res.render('content/quiz_page');
 });
 
 var port = 3000; // 사용할 포트 번호를 port 변수에 넣습니다.

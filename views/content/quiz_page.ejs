@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <head>
-    <%- include('../partials/master_head.ejs') %>
+    <%- include('../partials/master_head') %>
+    <link rel="stylesheet" href="/css/quiz.css">
 </head>
 <body>
-    <div id="Quiz_square">
+    <div class="main_square">
         <div id="Quiz_Title">
             문제 0번
         </div>
@@ -19,8 +20,8 @@
             <input type="text" id="answer" placeholder="이름을 입력하세요.">
         </div>
 
-        <div id="BtnWrap">
-        <button id="SendBtn">제출!</button>
+        <div class="BtnWrap">
+        <button class="Btn SendBtn">제출!</button>
         <button id="ReloadBtn">↻ 다른 문제</button>
         </div>
 

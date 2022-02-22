@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <head>
-    <%- include('../views/partials/master_head.ejs') %>
-    <link rel="stylesheet" href="css/index.css">
+    <%- include('../partials/master_head') %>
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <div id="main_square">
+    <div class="main_square">
         <div class="Title_name">
             | 전부 이름을 알고계신가요? |
         </div>
@@ -27,7 +27,7 @@
             현재 문제 개수
         </div>
         <div class="Btn_Wrap">
-            <button class="Btn" onclick="location.href=''">이름 맞추기 퀴즈 풀어보기!</button>
+            <button class="Btn" onclick="location.href='/content/quiz_page'">이름 맞추기 퀴즈 풀어보기!</button>
         </div>
     </div>
 </body>
