@@ -1,0 +1,4 @@
+//Atom에서 [Linter] Error running JSHint 자꾸 뜨는 거 없애는 거
+{
+  "extends" : "eslint-config-airbnb"
+}
