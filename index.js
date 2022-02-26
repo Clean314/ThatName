@@ -3,21 +3,10 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var app = express();
 
-var tCounter = 0;
 var multer = require('multer');
-var upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'public/quiz_image/');
-    },
-    filename: function (req, file, cb) {
-      ext = (file.originalname).split(".");
-      cb(null, tCounter + "." + ext[ext.length - 1]);
-    }
-  })
-});
 
 //DB셋팅
 dburl = "mongodb+srv://ThatNameUser:ThatNamePassword@thatnamedb.wt7qc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -34,6 +23,7 @@ app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(methodOverride('_method'));
 
 var quizSchema = mongoose.Schema({
   Pid : {type:Number, required:true, unique:true},
@@ -42,13 +32,40 @@ var quizSchema = mongoose.Schema({
   ext : {type:String}
 });
 var Quiz = mongoose.model('quiz', quizSchema);
-var tCounter = 0;
-Quiz.countDocuments({}, function (err, count) {
-    if (err){
-        console.log(err);
-    }else{
-        tCounter = count;
+let tCounter = 0;
+Quiz.countDocuments({}, function (err, count){
+  if (err){
+      console.log(err);
+  }else{
+      tCounter = count;
+  }
+});
+
+//새로 추가
+var upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/quiz_image/');
+    },
+    filename: function (req, file, cb) {
+      ext = (file.originalname).split(".");
+      cb(null, tCounter + "." + ext[ext.length - 1]);
     }
+  })
+});
+
+//사진 수정
+let update_Pid = 0;
+var update = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/quiz_image/');
+    },
+    filename: function (req, file, cb) {
+      ext = (file.originalname).split(".");
+      cb(null, update_Pid + "." + ext[ext.length - 1]);
+    }
+  })
 });
 
 //CONTENT
@@ -76,6 +93,11 @@ app.get('/admin/quiz_list', function(req, res){
   });
 });
 
+//quiz_add로 Get 시에
+app.get('/admin/quiz_add', function(req, res){
+  res.render('admin/quiz_add');
+});
+
 // quiz_list로 Post 시에
 app.post('/admin/quiz_list', upload.single('image'), function(req, res){
   req.body.Pid = tCounter;
@@ -83,16 +105,46 @@ app.post('/admin/quiz_list', upload.single('image'), function(req, res){
   ext = ((String)(req.file.originalname)).split(".");
   req.body.ext = ext[ext.length - 1];
 
-  console.log(req.body);
   Quiz.create(req.body, function(err, quiz){
     if(err) return res.json(err);
+    res.redirect('/admin/quiz_list');
   });
-  res.render('admin/quiz_list');
+  tCounter += 1;
 });
 
-//quiz_add로 Get 시에
-app.get('/admin/quiz_add', function(req, res){
-  res.render('admin/quiz_add');
+
+//퀴즈 보기/수정/삭제
+//:Pid 로 Get 시에
+app.get('/admin/:Pid', function(req, res){
+  Quiz.findOne({Pid:req.params.Pid}, function(err, quiz){
+    if(err) return res.json(err);
+    res.render('admin/quiz_show', {quiz_key:quiz});
+  });
+});
+
+//:Pid/edit 로 Get 시에
+app.get('/admin/:Pid/quiz_edit', function(req, res){
+  update_Pid = req.params.Pid;
+  Quiz.findOne({Pid:req.params.Pid}, function(err, quiz){
+    if(err) return res.json(err);
+    res.render('admin/quiz_edit', {quiz_key:quiz});
+  });
+});
+
+//:Pid 로 Put(Update) 시에
+app.put('/admin/:Pid', update.single('image'), function(req, res){
+  Quiz.findOneAndUpdate({Pid:req.params.Pid}, req.body, function(err, contact){
+    if(err) return res.json(err);
+    res.redirect('/admin/'+req.params.Pid);
+  });
+});
+
+//:Pid 로 Delete 시에
+app.delete('/admin/:Pid', function(req, res){
+  Quiz.deleteOne({Pid:req.params.Pid}, function(err){
+    if(err) return res.json(err);
+    res.redirect('admin/quiz_list');
+  });
 });
 
 var port = 3000; // 사용할 포트 번호를 port 변수에 넣습니다.

@@ -8,7 +8,7 @@
     <ul>
         <% quiz_key.forEach(function(q) { %>
           <li>
-            P<%= q.Pid %>
+            <a href="/admin/<%= q.Pid %>">P<%= q.Pid %></a>
           </li>
         <% }) %>
     </ul>

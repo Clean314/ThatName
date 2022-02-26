@@ -3,18 +3,19 @@
   <head>
   </head>
   <body>
-    <form action="/admin/quiz_list" method="post" enctype="multipart/form-data">
+    <h3>문제 <%= quiz_key.Pid %>번</h3>
+    <form action="/admin/<%= quiz_key.Pid %>?_method=put" method="post" enctype="multipart/form-data">
       <div>
         <label for="image">Image</label>
         <input type="file" id="image" name="image">
       </div>
       <div>
         <label for="answer">Answer(쉼표로 구분)</label>
-        <input type="text" id="answer" name="answer">
+        <input type="text" id="answer" name="answer" value="<%= quiz_key.answer %>">
       </div>
       <div>
         <label for="comment">Comment</label>
-        <input type="text" id="comment" name="comment">
+        <input type="text" id="comment" name="comment" value="<%= quiz_key.comment %>">
       </div>
       <div>
         <button type="submit">완료</button>
