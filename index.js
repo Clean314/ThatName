@@ -9,7 +9,7 @@ var app = express();
 var multer = require('multer');
 
 //DB셋팅
-dburl = "mongodb+srv://ThatNameUser:ThatNamePassword@thatnamedb.wt7qc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+dburl = "mongodb+srv://ThatNameUser:dswnrf6boIbUigrB@thatnamedb.lgctr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose.connect(dburl);
 var db = mongoose.connection;
 db.once('open', function(){
