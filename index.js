@@ -76,12 +76,63 @@ app.get('/', function(req, res){
 
 //content로 get 시에 index.ejs(메인페이지)
 app.get('/content', function(req, res){
-  res.render('content/index');
+  res.render('content/index', {tCounter:tCounter});
 });
 
-//quiz_page로 get 시에 quiz_page.ejs
-app.get('/content/quiz_page', function(req, res){
-  res.render('content/quiz_page');
+//랜덤 quiz_page
+app.get('/quiz_page', function(req, res){
+  randPid = Math.floor(Math.random() * tCounter);
+  Quiz.findOne({Pid:randPid}, function(err, quiz){
+    if(err) return res.json(err);
+    res.render('content/quiz_page', {quiz_key:quiz});
+  });
+});
+
+//정해진 quiz_page
+app.get('/quiz_page/:Pid', function(req, res){
+  Quiz.findOne({Pid:req.params.Pid}, function(err, quiz){
+    if(err) return res.json(err);
+    res.render('content/quiz_page', {quiz_key:quiz});
+  });
+});
+
+//채점 함수
+function scoring(answer_list, input_answer){
+  let checker = false;
+  answer_list.forEach(function(correct_answer){
+    correct_answer = correct_answer.replace(/ /gi, "");
+    if(correct_answer === input_answer){
+      checker = true;
+      return;
+    }
+  });
+  return checker;
+}
+// quiz_page로 Post 시에
+app.post('/quiz_page', function(req, res){
+  let answer_list = [];
+  var quiz_id = req.body.Pid;
+  var input_answer = req.body.answer; input_answer = input_answer.replace(/ /gi, "");
+
+  Quiz.findOne({Pid:quiz_id}, function(err, quiz){
+    if(err) return res.json(err);
+    if(scoring(quiz.answer, input_answer)){
+      res.redirect('/quiz_correct');
+    }
+    else {
+      res.redirect('/quiz_incorrect');
+    }
+  });
+});
+
+//정답페이지
+app.get('/quiz_correct', function(req, res){
+  res.render('content/quiz_correct');
+});
+
+//오답페이지
+app.get('/quiz_incorrect', function(req, res){
+  res.render('content/quiz_incorrect');
 });
 
 //ADMIN
@@ -101,21 +152,21 @@ app.get('/admin/quiz_add', function(req, res){
 // quiz_list로 Post 시에
 app.post('/admin/quiz_list', upload.single('image'), function(req, res){
   req.body.Pid = tCounter;
-  req.body.answer = ((String)(req.body.answer)).split(",");
-  ext = ((String)(req.file.originalname)).split(".");
+  var arr = (req.body.answer).split(",");
+  req.body.answer = arr;
+  var ext = ((String)(req.file.originalname)).split(".");
   req.body.ext = ext[ext.length - 1];
 
   Quiz.create(req.body, function(err, quiz){
     if(err) return res.json(err);
-    res.redirect('/admin/quiz_list');
+    res.redirect('quiz_list');
   });
   tCounter += 1;
 });
 
-
 //퀴즈 보기/수정/삭제
 //:Pid 로 Get 시에
-app.get('/admin/:Pid', function(req, res){
+app.get('/admin/quiz_list/:Pid', function(req, res){
   Quiz.findOne({Pid:req.params.Pid}, function(err, quiz){
     if(err) return res.json(err);
     res.render('admin/quiz_show', {quiz_key:quiz});
@@ -123,7 +174,7 @@ app.get('/admin/:Pid', function(req, res){
 });
 
 //:Pid/edit 로 Get 시에
-app.get('/admin/:Pid/quiz_edit', function(req, res){
+app.get('/admin/quiz_edit/:Pid', function(req, res){
   update_Pid = req.params.Pid;
   Quiz.findOne({Pid:req.params.Pid}, function(err, quiz){
     if(err) return res.json(err);
@@ -133,9 +184,11 @@ app.get('/admin/:Pid/quiz_edit', function(req, res){
 
 //:Pid 로 Put(Update) 시에
 app.put('/admin/:Pid', update.single('image'), function(req, res){
+  var arr = (req.body.answer).split(",");
+  req.body.answer = arr;
   Quiz.findOneAndUpdate({Pid:req.params.Pid}, req.body, function(err, contact){
     if(err) return res.json(err);
-    res.redirect('/admin/'+req.params.Pid);
+    res.redirect('quiz_list/'+req.params.Pid);
   });
 });
 

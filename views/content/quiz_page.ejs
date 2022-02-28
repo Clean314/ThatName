@@ -5,28 +5,37 @@
 </head>
 <body>
     <div class="main_square">
+      <form action="/quiz_page" method="post">
         <div class="Quiz_Title">
-            문제 0번
+          문제 <%= quiz_key.Pid %>번
+          <input type="number" id="Pid" name="Pid" value="<%= quiz_key.Pid %>" style="display:none;" readonly>
         </div>
 
         <div class="image">
-          <img src="/quiz_image/P0.jpg" alt="문제 사진이 보이지 않을 시 문의 바랍니다.">
+          <img src="/quiz_image/<%= quiz_key.Pid + "." + quiz_key.ext %>" alt="문제 사진이 보이지 않을 시 문의 바랍니다.">
         </div>
 
         <div class="comment">
-            설명 : 설명없음
+            설명 : <%= quiz_key.comment %>
         </div>
 
         <div class="input">
-            <input type="text" class="answer" placeholder="이름을 입력하세요.">
+            <input type="text" id="answer" name="answer" class="answer" placeholder="이름을 입력하세요.">
         </div>
 
         <div class="BtnWrap">
-        <button class="Btn SendBtn">제출!</button>
-        <button class="Btn ReloadBtn">↻ 다른 문제</button>
+        <button class="Btn SendBtn" type="submit">제출!</button>
+        </form>
+        <button class="Btn ReloadBtn" onclick="location.href='/quiz_page'" type="button">↻ 다른 문제</button>
         </div>
 
-        <div class="Hint">▶ 힌트보기</div>
+        <div class="Hint">
+          <ul>
+            <li> 답은 한 개만 입력하세요. </li>
+            <li> 한글로 입력하세요. </li>
+            <li> 풀지 않은 문제만 보려면 마이페이지로. </li>
+          </ul>
+        </div>
     </div>
 </body>
 </html>

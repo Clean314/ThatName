@@ -54,7 +54,7 @@
 }
 
 .Hint{
-    display: block;
+    display: inline-block;
     color: #8D879D;
     padding: 1em;
 }
