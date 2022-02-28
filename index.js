@@ -119,8 +119,8 @@ app.post('/quiz_page', function(req, res){
     if(scoring(quiz.answer, input_answer)){
       res.redirect('/quiz_correct');
     }
-    else {
-      res.redirect('/quiz_incorrect');
+    else{
+      res.redirect('/quiz_incorrect/'+quiz_id);
     }
   });
 });
@@ -131,8 +131,8 @@ app.get('/quiz_correct', function(req, res){
 });
 
 //오답페이지
-app.get('/quiz_incorrect', function(req, res){
-  res.render('content/quiz_incorrect');
+app.get('/quiz_incorrect/:Pid', function(req, res){
+  res.render('content/quiz_incorrect', {Pid:req.params.Pid});
 });
 
 //ADMIN
