@@ -1,0 +1,20 @@
+.Ranking_Icon{
+  display: block;
+  padding: 0.2em;
+  color: white;
+  font-size: 450%;
+}
+
+.Ranking_element_wrap{
+  display: block;
+  padding: 0.1em;
+}
+
+.Ranking_element{
+  display: block;
+  margin: 1em;
+  padding: 2em;
+  background-color: #2D313B;
+  color: white;
+  border-radius: 1em;
+}

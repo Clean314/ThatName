@@ -5,6 +5,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var app = express();
+var router = express.Router();
 
 var multer = require('multer');
 
@@ -77,6 +78,11 @@ app.get('/', function(req, res){
 //content로 get 시에 index.ejs(메인페이지)
 app.get('/content', function(req, res){
   res.render('content/index', {tCounter:tCounter});
+});
+
+//랭킹페이지
+app.get('/ranking', function(req, res){
+  res.render('content/ranking');
 });
 
 //랜덤 quiz_page
