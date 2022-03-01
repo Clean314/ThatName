@@ -26,6 +26,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 
+app.use('/users', require('./routes/users'));
+
 var quizSchema = mongoose.Schema({
   Pid : {type:Number, required:true, unique:true},
   answer : {type:Array},
