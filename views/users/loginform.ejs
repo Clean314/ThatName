@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../partials/master_head') %>
+    <link rel="stylesheet" href="/css/quiz.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="main_square">
+      <div class="Quiz_Title">
+        로그인
+      </div>
+      <div class="login_Wrap">
+
+        <div class="input_Wrap">
+          <div class="blue_box">
+            아이디 <span style="color:#3CC9FF;font-weight:700;">|</span>
+          </div>
+          <input type="text" id="user_id" name="user_id" class="answer user_input" placeholder="아이디를 입력하세요.">
+        </div>
+
+        <div class="input_Wrap">
+          <div class="blue_box">
+            비밀번호 <span style="color:#3CC9FF;font-weight:700;">|</span>
+          </div>
+          <input type="text" id="user_pw" name="user_pw" class="answer user_input" placeholder="비밀번호 입력하세요.">
+        </div>
+      </div>
+
+      <button class="Btn" style="width:20%;" type="submit">로그인</button>
+      <a href="users/register" class="change">회원가입하기</a>
+    </div>
+</body>
+</html>
