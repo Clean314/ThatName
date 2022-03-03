@@ -1,5 +1,6 @@
 table{
-    margin: 0 auto;
+  font-size: 1em;
+  margin: 0 auto;
 }
 
 img{
@@ -29,10 +30,28 @@ img{
     padding: 0.5em;
     color: #8D879D;
     font-weight: 200;
+    font-size: 1em;
 }
 
 .Number{
     font-size: 350%;
     font-weight: 700;
     color: #8D879D;
+}
+
+.login_Wrap{
+  color: white;
+  display: block;
+  padding: 1em;
+}
+
+.login_Btn{
+  background-color: #2D313B;
+  color: #8D879D;
+  width: 20%;
+  font-size: 1em;
+}
+.login_Btn:hover{
+    background-color: #8D879D;
+    color: #2D313B;
 }

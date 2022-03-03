@@ -4,6 +4,9 @@ var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var flash = require('connect-flash');
+var session = require('express-session');
+var passport = require('./config/passport');
 var app = express();
 var router = express.Router();
 
@@ -25,6 +28,17 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
+app.use(flash());
+app.use(session({secret:'MySecret', resave:true, saveUninitialized:true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//미들웨어
+app.use(function(req,res,next){
+  res.locals.isAuthenticated = req.isAuthenticated();
+  res.locals.currentUser = req.user;
+  next();
+});
 
 app.use('/users', require('./routes/users'));
 
@@ -135,6 +149,9 @@ app.post('/quiz_page', function(req, res){
 
 //정답페이지
 app.get('/quiz_correct', function(req, res){
+  // if(isAuthenticated){
+  //   currentUser.score = currentUser.score + 1;
+  // }
   res.render('content/quiz_correct');
 });
 

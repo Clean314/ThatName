@@ -4,6 +4,7 @@
     <%- include('../partials/master_head') %>
     <link rel="stylesheet" href="/css/quiz.css">
     <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/user.css">
 </head>
 <body>
     <div class="main_square">
@@ -12,23 +13,39 @@
       </div>
       <div class="login_Wrap">
 
+        <form class="" action="/users/login" method="post">
+
         <div class="input_Wrap">
           <div class="blue_box">
             아이디 <span style="color:#3CC9FF;font-weight:700;">|</span>
           </div>
-          <input type="text" id="user_id" name="user_id" class="answer user_input" placeholder="아이디를 입력하세요.">
+          <input type="text" id="user_id" name="user_id" value="<%= user_id %>" class="answer user_input" placeholder="아이디를 입력하세요." <%= (errors.user_id)?'is-invalid':'' %>">
+
         </div>
 
         <div class="input_Wrap">
           <div class="blue_box">
             비밀번호 <span style="color:#3CC9FF;font-weight:700;">|</span>
           </div>
-          <input type="text" id="user_pw" name="user_pw" class="answer user_input" placeholder="비밀번호 입력하세요.">
+          <input type="password" id="password" name="password" class="answer user_input" placeholder="비밀번호 입력하세요." <%= (errors.password)?'is-invalid':'' %>">
+
         </div>
       </div>
 
+      <% if(errors.user_id){ %>
+          <div class="invalid-feedback"><%= errors.user_id %></div>
+        <% } %>
+      <% if(errors.password){ %>
+          <div class="invalid-feedback"><%= errors.password %></div>
+        <% } %>
+      <% if(errors.login){ %>
+          <div class="invalid-feedback d-block"><%= errors.login %></div>
+        <% } %>
+
       <button class="Btn" style="width:20%;" type="submit">로그인</button>
-      <a href="users/register" class="change">회원가입하기</a>
+
+      </form>
+      <a href="/users/register" class="change">회원가입하기</a>
     </div>
 </body>
 </html>

@@ -11,6 +11,13 @@
           문제 <%= quiz_key.Pid %>번
           <input type="number" id="Pid" name="Pid" value="<%= quiz_key.Pid %>" style="display:none;" readonly>
         </div>
+        <div class="user_info_wrap">
+          <% if(isAuthenticated){ %>
+            <%= currentUser.nickname %> 님의 맞춘 문제 수 : <%= currentUser.score %>
+          <%} else { %>
+            <a href="/users/login" style="text-decoration:none;color:#8D879D;">맞춘 문제를 보려면 로그인</a>
+          <% } %>
+        </div>
 
         <div class="image">
           <img src="/quiz_image/<%= quiz_key.Pid + "." + quiz_key.ext %>" alt="문제 사진이 보이지 않을 시 문의 바랍니다.">
@@ -34,7 +41,7 @@
           <ul>
             <li> 답은 한 개만 입력하세요. </li>
             <li> 한글로 입력하세요. </li>
-            <li> 풀지 않은 문제만 보려면 마이페이지로. </li>
+            <li> 풀지 않은 문제만 풀려면 로그인 </li>
           </ul>
         </div>
     </div>

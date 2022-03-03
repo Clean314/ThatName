@@ -58,3 +58,12 @@
     color: #8D879D;
     padding: 1em;
 }
+
+.user_info_wrap{
+  display: inline-block;
+  text-align: left;
+  width: 90%;
+  padding: 1em;
+  color: #8D879D;
+  font-weight: 400;
+}

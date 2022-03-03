@@ -1,0 +1,29 @@
+.login_Wrap{
+  display: block;
+  padding: 1em;
+  color: white;
+}
+
+.user_input{
+  display: inline-block;
+  width: 40%;
+}
+
+.blue_box{
+  display: inline-block;
+  text-align: right;
+  width: 20%;
+  padding: 1em;
+  font-size: 1em;
+}
+
+.change{
+  display: block;
+  padding: 1em;
+  color: white;
+}
+
+span{
+  display: inline-block;
+
+}

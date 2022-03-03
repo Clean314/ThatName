@@ -18,13 +18,14 @@ html, body{
 }
 
 .Btn_Wrap{
+    display: block;
     padding: 1em;
 }
 .Btn{
     padding: 1em;
     margin: 0.8em;
     width: 30%;
-    font-size: 120%;
+    font-size: 1.2em;
     font-weight: 700;
     border: none;
     border-radius: 1em;
