@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="main_square">
-      <form action="/quiz_page" method="post">
+      <form action="/quiz" method="post">
         <div class="Quiz_Title">
           문제 <%= quiz_key.Pid %>번
           <input type="number" id="Pid" name="Pid" value="<%= quiz_key.Pid %>" style="display:none;" readonly>
@@ -34,7 +34,7 @@
         <div class="BtnWrap">
         <button class="Btn SendBtn" type="submit">제출!</button>
         </form>
-        <button class="Btn ReloadBtn" onclick="location.href='/quiz_page'" type="button">↻ 다른 문제</button>
+        <button class="Btn ReloadBtn" onclick="location.href='/quiz'" type="button">↻ 다른 문제</button>
         </div>
 
         <div class="Hint">

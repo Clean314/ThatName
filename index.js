@@ -41,14 +41,10 @@ app.use(function(req,res,next){
 });
 
 app.use('/users', require('./routes/users'));
+app.use('/quiz', require('./routes/quiz'));
 
-var quizSchema = mongoose.Schema({
-  Pid : {type:Number, required:true, unique:true},
-  answer : {type:Array},
-  comment : {type:String},
-  ext : {type:String}
-});
-var Quiz = mongoose.model('quiz', quizSchema);
+//문제 수 계산
+var Quiz = require('./models/Quiz');
 let tCounter = 0;
 Quiz.countDocuments({}, function (err, count){
   if (err){
@@ -56,6 +52,11 @@ Quiz.countDocuments({}, function (err, count){
   }else{
       tCounter = count;
   }
+});
+
+//content로 get 시에 index.ejs(메인페이지)
+app.get('/content', function(req, res){
+  res.render('content/index', {tCounter:tCounter});
 });
 
 //새로 추가
@@ -85,79 +86,9 @@ var update = multer({
   })
 });
 
-//CONTENT
 //content를 루트로
 app.get('/', function(req, res){
   res.redirect('/content');
-});
-
-//content로 get 시에 index.ejs(메인페이지)
-app.get('/content', function(req, res){
-  res.render('content/index', {tCounter:tCounter});
-});
-
-//랭킹페이지
-app.get('/ranking', function(req, res){
-  res.render('content/ranking');
-});
-
-//랜덤 quiz_page
-app.get('/quiz_page', function(req, res){
-  randPid = Math.floor(Math.random() * tCounter);
-  Quiz.findOne({Pid:randPid}, function(err, quiz){
-    if(err) return res.json(err);
-    res.render('content/quiz_page', {quiz_key:quiz});
-  });
-});
-
-//정해진 quiz_page
-app.get('/quiz_page/:Pid', function(req, res){
-  Quiz.findOne({Pid:req.params.Pid}, function(err, quiz){
-    if(err) return res.json(err);
-    res.render('content/quiz_page', {quiz_key:quiz});
-  });
-});
-
-//채점 함수
-function scoring(answer_list, input_answer){
-  let checker = false;
-  answer_list.forEach(function(correct_answer){
-    correct_answer = correct_answer.replace(/ /gi, "");
-    if(correct_answer === input_answer){
-      checker = true;
-      return;
-    }
-  });
-  return checker;
-}
-// quiz_page로 Post 시에
-app.post('/quiz_page', function(req, res){
-  let answer_list = [];
-  var quiz_id = req.body.Pid;
-  var input_answer = req.body.answer; input_answer = input_answer.replace(/ /gi, "");
-
-  Quiz.findOne({Pid:quiz_id}, function(err, quiz){
-    if(err) return res.json(err);
-    if(scoring(quiz.answer, input_answer)){
-      res.redirect('/quiz_correct');
-    }
-    else{
-      res.redirect('/quiz_incorrect/'+quiz_id);
-    }
-  });
-});
-
-//정답페이지
-app.get('/quiz_correct', function(req, res){
-  // if(isAuthenticated){
-  //   currentUser.score = currentUser.score + 1;
-  // }
-  res.render('content/quiz_correct');
-});
-
-//오답페이지
-app.get('/quiz_incorrect/:Pid', function(req, res){
-  res.render('content/quiz_incorrect', {Pid:req.params.Pid});
 });
 
 //ADMIN
