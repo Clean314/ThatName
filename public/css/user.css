@@ -1,3 +1,9 @@
 .invalid-feedback{
   color : red;
 }
+
+.BackBtn{
+  display: block;
+  font-size: larger;
+  width: auto;
+}

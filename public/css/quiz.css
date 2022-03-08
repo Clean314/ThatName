@@ -6,18 +6,10 @@
     font-weight: 700;
 }
 
-.image{
-    display: inline-block;
-    width: 90%;
-    height: 20em;
-    border-radius: 1em;
-    background-color: whitesmoke;
-}
-
-.image img{
+img{
   display: inline-block;
-  width : auto;
-  height: inherit;
+  width: 50%; height: auto;
+  border-radius: 1em;
 }
 
 .comment{
@@ -53,6 +45,16 @@
     color: #2D313B;
 }
 
+.RankingBtn{
+  margin: 0 auto;
+  padding: 0.5em;
+  width: auto;
+  border-radius: 0.5em;
+  font-size: medium;
+  float: right;
+  background-color: #FFD033;
+}
+
 .Hint{
     display: inline-block;
     color: #8D879D;
@@ -62,8 +64,14 @@
 .user_info_wrap{
   display: inline-block;
   text-align: left;
-  width: 90%;
   padding: 1em;
-  color: #8D879D;
+  width: 90%;
+  color: white;
   font-weight: 400;
+}
+
+.logout{
+  color:grey;
+  font-size:small;
+  padding:1em;
 }

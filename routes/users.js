@@ -8,12 +8,35 @@ router.get('/', function(req, res){
   res.redirect('/users/login');
 });
 
+router.get('/ranking', function(req, res){
+  User.aggregate(
+    [
+        { "$project": {
+            "user_id": 1,
+            "solved": 1,
+            "score": { "$size": "$solved" }
+        }},
+        { "$sort": { "score": -1 } },
+        { "$limit": 10 }
+    ],
+    function(err,users) {
+      if(err) return res.json(err);
+      res.render('users/ranking', {users:users});
+    }
+  );
+});
+
+//register
 router.get('/register', function(req, res){
   var user = req.flash('user')[0] || {};
   var errors = req.flash('errors')[0] || {};
-  res.render('users/registerform', { user:user, errors:errors });
+  res.render('users/registerform', {
+    user:user,
+    errors:errors
+  });
 });
 
+//post register
 router.post('/register', function(req, res){
   User.create(req.body, function(err, user){
     if(err){
@@ -59,7 +82,7 @@ router.post('/login',
     }
   },
   passport.authenticate('local-login', {
-    successRedirect : '/quiz_page',
+    successRedirect : '/quiz',
     failureRedirect : '/users/login'
   }
 ));
@@ -67,7 +90,55 @@ router.post('/login',
 // Logout
 router.get('/logout', function(req, res) {
   req.logout();
-  res.redirect('/quiz_page');
+  res.redirect('/quiz');
+});
+
+// edit
+router.get('/:user_id/edit', function(req, res){
+  // var user_id = req.flash('user_id')[0];
+  // var errors = req.flash('errors')[0] || {};
+  // if(!user_id){
+  //   User.findOne({user_id:req.params.user_id}, function(err, user){
+  //     if(err) return res.json(err);
+  //     res.render('users/edit', { user_id:req.params.user_id, user:user, errors:errors });
+  //   });
+  // }
+  // else {
+  //   res.render('users/edit', { user_id:req.params.user_id, user:user, errors:errors });
+  // }
+
+  var user = req.flash('user')[0];
+  var errors = req.flash('errors')[0] || {};
+  res.render('users/edit', {
+    user:user,
+    errors:errors
+  });
+});
+
+// update
+router.put('/:user_id', function(req, res, next){
+  User.findOne({username:req.params.user_id})
+  .select('password')
+  .exec(function(err, user){
+    if(err) return res.json(err);
+
+    // update user object
+    user.originalPassword = user.password;
+    user.password = req.body.newPassword? req.body.newPassword : user.password;
+    for(var p in req.body){
+      user[p] = req.body[p];
+    }
+
+    // save updated user
+    user.save(function(err, user){
+      if(err){
+        req.flash('user', req.body);
+        req.flash('errors', parseError(err));
+        return res.redirect('/users/'+req.params.user_id+'/edit');
+      }
+      res.redirect('/users/'+user.user_id+'/edit');
+    });
+});
 });
 
 module.exports = router;

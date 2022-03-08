@@ -1,6 +1,9 @@
 var express = require('express');
 var app = express();
 var Quiz = require('../models/Quiz');
+
+var User = require('../models/User');
+
 var passport = require('../config/passport');
 
 let tCounter = 0;
@@ -42,8 +45,7 @@ app.post('/', function(req, res){
   Quiz.findOne({Pid:quiz_id}, function(err, quiz){
     if(err) return res.json(err);
     if(scoring(quiz.answer, input_answer)){
-      // res.render('content/quiz_correct');
-      res.redirect('/quiz/quiz_correct');
+      res.redirect('/quiz/quiz_correct/'+quiz_id);
     }
     else{
       res.redirect('/quiz/quiz_incorrect/'+quiz_id);
@@ -52,10 +54,12 @@ app.post('/', function(req, res){
 });
 
 //정답페이지
-app.get('/quiz_correct', function(req, res){
-  // if(isAuthenticated){
-  //   currentUser.score = currentUser.score + 1;
-  // }
+app.get('/quiz_correct/:Pid', function(req, res){
+  if(req.isAuthenticated()){
+    User.findOneAndUpdate({ user_id: req.user.user_id }, { $addToSet: { solved: req.params.Pid} }, function(err, users){
+      if(err) return res.json(err);
+    });
+  }
   res.render('content/quiz_correct');
 });
 

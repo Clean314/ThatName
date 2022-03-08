@@ -25,9 +25,6 @@ var userSchema = mongoose.Schema({
     match:[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,'올바른 이메일 주소를 입력하세요.'],
     trim:true
   },
-  score:{
-    type:Number
-  },
   solved:{
     type:Array
   }

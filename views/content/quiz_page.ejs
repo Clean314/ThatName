@@ -13,13 +13,14 @@
         </div>
         <div class="user_info_wrap">
           <% if(isAuthenticated){ %>
-            <%= currentUser.nickname %> 님의 맞춘 문제 수 : <%= currentUser.score %>
+             <a href="/users/<%= currentUser.user_id %>/edit" style="color:white;"><%= currentUser.nickname %></a> 님의 맞춘 문제 수 : <%= currentUser.solved.length %> <a href="/users/logout" class="logout">로그아웃</a>
           <%} else { %>
             <a href="/users/login" style="text-decoration:none;color:#8D879D;">맞춘 문제를 보려면 로그인</a>
           <% } %>
+          <button type="button" class="Btn RankingBtn" onclick="location.href='/users/ranking'">♕ 랭킹보기</button>
         </div>
 
-        <div class="image">
+        <div>
           <img src="/quiz_image/<%= quiz_key.Pid + "." + quiz_key.ext %>" alt="문제 사진이 보이지 않을 시 문의 바랍니다.">
         </div>
 
@@ -39,9 +40,13 @@
 
         <div class="Hint">
           <ul>
-            <li> 답은 한 개만 입력하세요. </li>
-            <li> 한글로 입력하세요. </li>
-            <li> 풀지 않은 문제만 풀려면 로그인 </li>
+            <li> 답은 하나만, 한글로 입력하세요. </li>
+            <li> 공백은 무시됩니다. </li>
+            <% if(isAuthenticated){ %>
+              <li> 이미 맞춘 문제는 점수에 포함되지 않습니다. </li>
+            <%} else { %>
+              <li> 풀지 않은 문제만 풀려면 로그인 </li>
+            <% } %>
           </ul>
         </div>
     </div>

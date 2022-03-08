@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../partials/master_head') %>
+    <link rel="stylesheet" href="/css/ranking.css">
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+  <button type="button" class="Btn BackBtn" onclick="history.back();">↩</button>
+    <div class="main_square" style="width:50%;">
+      <div class="Ranking_Icon">
+        🏆
+      </div>
+
+      <% for(i = 0; i < 3; i++){ %>
+        <div class="Ranking_element">
+          <div class="Ranking_box N<%= i+1 %>">
+            #<%= i+1 %>
+          </div>
+          <div class="Info_box">
+            <div class="ID">
+              아이디 <%= users[i].user_id %> 님
+            </div>
+            <div class="score">
+              맞춘 문제 수 : <%= users[i].score %>개
+            </div>
+          </div>
+        </div>
+      <% } %>
+
+      <% for(i = 3; i < users.length; i++){ %>
+        <div class="Ranking_element">
+          <div class="Normal_box">
+            #i+1
+          </div>
+          <div class="Info_box">
+            <div class="ID">
+              아이디 <%= users[i].user_id %>님
+            </div>
+            <div class="score">
+              맞춘 문제 수 : <%= users[i].score %>개
+            </div>
+          </div>
+        </div>
+      <% } %>
+
+    </div>
+</body>
+</html>

@@ -13,8 +13,46 @@
 .Ranking_element{
   display: block;
   margin: 1em;
-  padding: 2em;
-  background-color: #2D313B;
-  color: white;
+  text-align: left;
+}
+
+.Ranking_box{
+  display: inline-block;
+  padding: 1em;
   border-radius: 1em;
+  font-weight: 700;
+  font-size: larger;
+}
+
+.N1{
+  background-color: #FFD033;
+}
+
+.N2{
+  background-color: #3CC9FF;
+}
+
+.N3{
+  background-color: #E32757;
+}
+
+.Normal_box{
+  display: inline-block;
+  padding: 1em;
+  font-weight: 700;
+  color: white;
+}
+
+.Info_box{
+  display: inline-block;
+  margin: 1em;
+  padding: 0.5em;
+}
+
+.ID{
+  color: white;
+}
+
+.score{
+  color: white;
 }
