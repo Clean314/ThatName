@@ -7,22 +7,18 @@
     <link rel="stylesheet" href="/css/user.css">
 </head>
 <body>
+  <button type="button" class="Btn BackBtn" onclick="history.back();">↩</button>
     <div class="main_square">
       <div class="Quiz_Title">
         회원 정보 수정
       </div>
-      <form action="/users/<%= user %>?_method=put" method="post">
+      <form action="/users/<%= user.user_id %>?_method=put" method="post">
       <div class="login_Wrap">
-
-
         <div class="input_Wrap">
           <div class="blue_box">
             닉네임 <span style="color:#3CC9FF;font-weight:700;">|</span>
           </div>
           <input type="text" id="nickname" name="nickname" class="answer user_input" placeholder="닉네임을 입력하세요." value="<%= user.nickname %>" <%= (errors.nickname)?'is-invalid':'' %>">
-            <% if(errors.nickname){ %>
-              <span class="invalid-feedback"><%= errors.nickname %></span>
-            <% } %>
         </div>
 
         <div class="input_Wrap">
@@ -30,9 +26,6 @@
             아이디 <span style="color:#3CC9FF;font-weight:700;">|</span>
           </div>
           <input type="text" id="user_id" name="user_id" class="answer user_input" placeholder="아이디를 입력하세요." value="<%= user.user_id %>" <%= (errors.user_id)?'is-invalid':'' %>">
-          <% if(errors.user_id){ %>
-            <span class="invalid-feedback"><%= errors.user_id.message %></span>
-          <% } %>
         </div>
 
         <div class="input_Wrap">
@@ -53,10 +46,8 @@
           <div class="blue_box">
             이메일 <span style="color:#3CC9FF;font-weight:700;">|</span>
           </div>
-          <input type="email" id="email" name="email" class="answer user_input" placeholder="이메일" value="<%= user.email %>">
+          <input type="email" id="email" name="email" class="answer user_input" value="<%= user.email %>" placeholder="이메일">
         </div>
-
-        <input type="number" id="score" name="score" value="0" style="display:none;" readonly>
 
         <hr style="border: solid 0.5px #4B5262; margin: 2em; width : 80%; display : inline-block;"></hr>
 
@@ -70,5 +61,12 @@
       </div>
       <button class="Btn" style="width:20%;" type="submit">수정하기</button>
     </form>
+
+    <% if(errors.nickname){ %>
+      <span class="invalid-feedback"><%= errors.nickname %></span>
+    <% } %>
+    <% if(errors.user_id){ %>
+      <span class="invalid-feedback"><%= errors.user_id.message %></span>
+    <% } %>
 </body>
 </html>

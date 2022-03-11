@@ -50,9 +50,7 @@
           </div>
           <input type="email" id="email" name="email" class="answer user_input" placeholder="이메일" value="<%= user.email %>" <%= (errors.email)?'is-invalid':'' %>">
         </div>
-
-        <input type="number" id="score" name="score" value="0" style="display:none;" readonly>
-
+        
         <!-- 메시지는 하단에다 한 번에 표시해주려고 합니다 -->
         <% if(errors.nickname){ %>
           <div class="invalid-feedback"><%= errors.nickname.message %></div>
@@ -70,11 +68,6 @@
           <div class="invalid-feedback"><%= errors.email.message %></div>
         <% } %>
 
-        <!-- <% if(errors.unhandled){ %>
-          <div>
-            <%= errors.unhandled %>
-          </div>
-        <% } %> -->
       </div>
       <button class="Btn" style="width:20%;" type="submit">회원가입</button>
     </form>

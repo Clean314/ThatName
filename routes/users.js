@@ -95,24 +95,17 @@ router.get('/logout', function(req, res) {
 
 // edit
 router.get('/:user_id/edit', function(req, res){
-  // var user_id = req.flash('user_id')[0];
-  // var errors = req.flash('errors')[0] || {};
-  // if(!user_id){
-  //   User.findOne({user_id:req.params.user_id}, function(err, user){
-  //     if(err) return res.json(err);
-  //     res.render('users/edit', { user_id:req.params.user_id, user:user, errors:errors });
-  //   });
-  // }
-  // else {
-  //   res.render('users/edit', { user_id:req.params.user_id, user:user, errors:errors });
-  // }
-
   var user = req.flash('user')[0];
   var errors = req.flash('errors')[0] || {};
-  res.render('users/edit', {
-    user:user,
-    errors:errors
-  });
+  if(!user){
+    User.findOne({user_id:req.params.user_id}, function(err, user){
+      if(err) return res.json(err);
+      res.render('users/edit', { user_id:req.params.user_id, user:user, errors:errors });
+    });
+  }
+  else {
+    res.render('users/edit', { user_id:req.params.user_id, user:user, errors:errors });
+  }
 });
 
 // update
