@@ -54,6 +54,11 @@ Quiz.countDocuments({}, function (err, count){
   }
 });
 
+//content를 루트로
+app.get('/', function(req, res){
+  res.redirect('/content');
+});
+
 //content로 get 시에 index.ejs(메인페이지)
 app.get('/content', function(req, res){
   res.render('content/index', {tCounter:tCounter});
@@ -84,11 +89,6 @@ var update = multer({
       cb(null, update_Pid + "." + ext[ext.length - 1]);
     }
   })
-});
-
-//content를 루트로
-app.get('/', function(req, res){
-  res.redirect('/content');
 });
 
 //ADMIN

@@ -12,26 +12,65 @@
         🏆
       </div>
 
-      <% for(i = 0; i < 3; i++){ %>
-        <div class="Ranking_element">
-          <div class="Ranking_box N<%= i+1 %>">
-            #<%= i+1 %>
-          </div>
-          <div class="Info_box">
-            <div class="ID">
-              아이디 <%= users[i].user_id %> 님
-            </div>
-            <div class="score">
-              맞춘 문제 수 : <%= users[i].score %>개
-            </div>
-          </div>
+      <% if(isAuthenticated){ %>
+        <% var my_ranking = users.findIndex(i => i.user_id == currentUser.user_id) + 1; %>
+        <div class="my_ranking">
+          내 랭킹 : #<%= my_ranking %>
+        </div>
+      <%} else { %>
+        <div style="padding:1em;">
+          <a href="/users/login" style="text-decoration:none;color:#8D879D;">로그인 시 랭킹에 참여됩니다</a>
         </div>
       <% } %>
 
-      <% for(i = 3; i < users.length; i++){ %>
+      <hr color="white" width="90%" size="1px" noshade>
+
+      <div class="Ranking_element">
+        <div class="Ranking_box N1">
+          #1
+        </div>
+        <div class="Info_box">
+          <div class="ID">
+            <span style="color:#FFD033;font-size:larger;">♚</span> 아이디 <%= users[0].user_id %> 님
+          </div>
+          <div class="score">
+            맞춘 문제 수 : <%= users[0].score %>개
+          </div>
+        </div>
+      </div>
+
+      <div class="Ranking_element">
+        <div class="Ranking_box N2">
+          #2
+        </div>
+        <div class="Info_box">
+          <div class="ID">
+            <span style="color:#3CC9FF;font-size:larger;">♛</span> 아이디 <%= users[1].user_id %> 님
+          </div>
+          <div class="score">
+            맞춘 문제 수 : <%= users[1].score %>개
+          </div>
+        </div>
+      </div>
+
+      <div class="Ranking_element">
+        <div class="Ranking_box N3">
+          #3
+        </div>
+        <div class="Info_box">
+          <div class="ID">
+            <span style="color:#E32757;font-size:larger;">♜</span> 아이디 <%= users[2].user_id %> 님
+          </div>
+          <div class="score">
+            맞춘 문제 수 : <%= users[2].score %>개
+          </div>
+        </div>
+      </div>
+
+      <% for(i = 3; i < users.length && i < 50; i++){ %>
         <div class="Ranking_element">
           <div class="Normal_box">
-            #i+1
+            #<%= i+1 %>
           </div>
           <div class="Info_box">
             <div class="ID">
@@ -43,6 +82,12 @@
           </div>
         </div>
       <% } %>
+
+      <hr color="white" width="90%" size="1px" noshade>
+
+      <div style="padding:1em;color:#8D879D;">
+        상위 50위의 유저만 표시됩니다.
+      </div>
 
     </div>
 </body>

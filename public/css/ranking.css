@@ -24,6 +24,13 @@
   font-size: larger;
 }
 
+.my_ranking{
+  padding: 1em;
+  font-weight: 700;
+  font-size: larger;
+  color: white;
+}
+
 .N1{
   background-color: #FFD033;
 }
