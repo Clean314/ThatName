@@ -31,7 +31,12 @@ img{
 }
 
 .SendBtn{
-    width: 20%;
+  width: 20%;
+}
+
+.Unsolved_SendBtn{
+  width: 20%;
+  background-color:#E32757;
 }
 
 .ReloadBtn{
@@ -45,13 +50,21 @@ img{
     color: #2D313B;
 }
 
-.RankingBtn{
+.Ranking_Mode_Wrap{
+  float: right;
+}
+
+.Ranking_Mode_Btn{
   margin: 0 auto;
   padding: 0.5em;
   width: auto;
   border-radius: 0.5em;
   font-size: medium;
-  float: right;
+  background-color: #E32757;
+}
+
+.right{
+  margin: 0 0 0 0.5em;
   background-color: #FFD033;
 }
 
@@ -65,7 +78,7 @@ img{
   display: inline-block;
   text-align: left;
   padding: 1em;
-  width: 90%;
+  width: 95%;
   color: white;
   font-weight: 400;
 }

@@ -6,21 +6,15 @@
 </head>
 <body>
     <div class="main_square">
-      <form action="/quiz" method="post">
+      <form action="/quiz/unsolved" method="post">
         <div class="Quiz_Title">
           문제 <%= quiz_key.Pid %>번
           <input type="number" id="Pid" name="Pid" value="<%= quiz_key.Pid %>" style="display:none;" readonly>
         </div>
         <div class="user_info_wrap">
-          <% if(isAuthenticated){ %>
-             <a href="/users/<%= currentUser.user_id %>/edit" style="color:white;"><%= currentUser.nickname %></a> 님의 맞춘 문제 수 : <%= currentUser.solved.length %> <a href="/users/logout" class="logout">로그아웃</a>
-          <%} else { %>
-            <a href="/users/login" style="text-decoration:none;color:#8D879D;">맞춘 문제를 보려면 로그인</a>
-          <% } %>
+            <a href="/users/<%= currentUser.user_id %>/edit" style="color:white;"><%= currentUser.nickname %></a> 님의 맞춘 문제 수 : <%= currentUser.solved.length %> <a href="/users/logout" class="logout">로그아웃</a>
           <div class="Ranking_Mode_Wrap">
-            <% if(isAuthenticated){ %>
-               <button type="button" class="Btn Ranking_Mode_Btn" onclick="location.href='/quiz/unsolved'">못 푼 문제만</button>
-            <%} %>
+               <button type="button" class="Btn Ranking_Mode_Btn" style="background-color:#3CC9FF;" onclick="location.href='/quiz'">일반 모드로</button>
             <button type="button" class="Btn Ranking_Mode_Btn right" onclick="location.href='/users/ranking'">♕ 랭킹보기</button>
           </div>
         </div>
@@ -38,9 +32,9 @@
         </div>
 
         <div class="BtnWrap">
-        <button class="Btn SendBtn" type="submit">제출!</button>
+        <button class="Btn Unsolved_SendBtn" type="submit">제출!</button>
         </form>
-        <button class="Btn ReloadBtn" onclick="location.href='/quiz'" type="button">↻ 다른 문제</button>
+        <button class="Btn ReloadBtn" onclick="location.href='/quiz/unsolved'" type="button">↻ 다른 문제</button>
         </div>
 
         <div class="Hint">
@@ -49,9 +43,6 @@
             <li> 답은 여러 개일 수 있지만 그 중 하나만 입력해야 정답 인정이 됩니다. </li>
             <li> 공백은 무시됩니다. </li>
             <li> 이미 맞춘 문제는 채점되지 않습니다. </li>
-            <% if(!isAuthenticated){ %>
-              <li> 풀지 않은 문제만 풀려면 로그인 </li>
-            <% } %>
           </ul>
         </div>
     </div>
