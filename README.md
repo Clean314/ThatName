@@ -13,6 +13,7 @@
   <img width="70%;" src=https://i.imgur.com/9YdHmEA.jpg>
   <br><br>
     
-  상세한 내용은 아래 링크에서 확인해주십시오!
+  상세한 내용은 아래 링크에서 확인해주십시오! <br>
+  https://booming-thyme-537.notion.site/b48249f4c1e844e9970a95a849f45d30
   <br>
 </div>
